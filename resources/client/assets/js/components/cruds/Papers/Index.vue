@@ -60,8 +60,7 @@ import DatatableActions from '../../dtmodules/DatatableActions'
 import DatatableSingle from '../../dtmodules/DatatableSingle'
 import DatatableList from '../../dtmodules/DatatableList'
 import DatatableCheckbox from '../../dtmodules/DatatableCheckbox'
-import DocumentField from './tableComponents/documents_field'
-
+import DatatableDocumentField from './dtmodules/DatatableDocumentField'
 
 export default {
     data() {
@@ -75,7 +74,7 @@ export default {
                 { title: 'Ονοματεπώνυμο', field: 'name', sortable: true },
                 { title: 'Email', field: 'email', sortable: true },
                 { title: 'Ιδιότητα', field: 'attribute', sortable: true },
-                { title: 'Αρχείο', tdComp: DocumentField, sortable: false },
+                { title: 'Αρχείο', tdComp: DatatableDocumentField, sortable: false },
                 { title: 'Ανάθεση', field: 'assign', tdComp: DatatableList },
                 { title: 'Status', field: 'status', sortable: true },
                 { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }

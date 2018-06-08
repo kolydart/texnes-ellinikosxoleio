@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Requests\Admin;
 
+use App\Paper;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePapersRequest extends FormRequest
@@ -22,10 +23,6 @@ class StorePapersRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'art.*' => 'exists:arts,id',
-            'email' => 'email',
-            'assign.*' => 'exists:users,id',
-        ];
+        return Paper::storeValidation($this);
     }
 }

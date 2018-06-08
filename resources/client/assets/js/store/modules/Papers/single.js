@@ -9,7 +9,8 @@ function initialState() {
             name: null,
             email: null,
             attribute: null,
-            document: null, uploaded_documents: [], documents: [],
+            document: [],
+            uploaded_document: [],
             assign: [],
             status: null,
         },
@@ -58,9 +59,7 @@ const actions = {
                     params.set('art['+index+']', state.item.art[index].id)
                 }
             }
-            params.set('uploaded_documents', state.item.uploaded_documents.map(function (item) {
-                            return item.id
-            }))
+            params.set('uploaded_document', state.item.uploaded_document.map(o => o['id']))
             if (_.isEmpty(state.item.assign)) {
                 params.delete('assign')
             } else {
@@ -120,9 +119,7 @@ const actions = {
                     params.set('art['+index+']', state.item.art[index].id)
                 }
             }
-            params.set('uploaded_documents', state.item.uploaded_documents.map(function (item) {
-                            return item.id
-            }))
+            params.set('uploaded_document', state.item.uploaded_document.map(o => o['id']))
             if (_.isEmpty(state.item.assign)) {
                 params.delete('assign')
             } else {
@@ -194,14 +191,14 @@ const actions = {
     setAttribute({ commit }, value) {
         commit('setAttribute', value)
     },
-      uploadDocument({commit}, value) {
-        commit('setDocument', value);
+    setDocument({ commit }, value) {
+        commit('setDocument', value)
     },
-    destroyDocument({commit}, value) {
-        commit('removeDocument', value);
+    destroyDocument({ commit }, value) {
+        commit('destroyDocument', value)
     },
-    destroyUploadedDocument({commit}, value) {
-        commit('removeUploadedDocument', value);
+    destroyUploadedDocument({ commit }, value) {
+        commit('destroyUploadedDocument', value)
     },
     setAssign({ commit }, value) {
         commit('setAssign', value)
@@ -239,29 +236,26 @@ const mutations = {
     setAttribute(state, value) {
         state.item.attribute = value
     },
-        setDocument(state, value) {
+    setDocument(state, value) {
         for (let i in value) {
             let document = value[i];
             if (typeof document === "object") {
-                if (typeof state.item.documents === "undefined") {
-                    state.item.documents = [];
-                }
-                state.item.documents.push(document);
+                state.item.document.push(document);
             }
         }
     },
-    removeDocument(state, value) {
-        for (let i in state.item.uploaded_documents) {
-            let data = state.item.uploaded_documents[i];
-            if (data.id === value) {
-                state.item.uploaded_documents.splice(i, 1);
-            }
-        }
-    },
-    removeUploadedDocument(state, value) {
-        for (let i in state.item.documents) {
+    destroyDocument(state, value) {
+        for (let i in state.item.document) {
             if (i == value) {
-                state.item.documents.splice(i, 1);
+                state.item.document.splice(i, 1);
+            }
+        }
+    },
+    destroyUploadedDocument(state, value) {
+        for (let i in state.item.uploaded_document) {
+            let data = state.item.uploaded_document[i];
+            if (data.id === value) {
+                state.item.uploaded_document.splice(i, 1);
             }
         }
     },

@@ -59,7 +59,7 @@
                                             </tr>
                                         <tr>
                                             <th>Αρχείο</th>
-                                            <td v-html="item.documents_link"></td>
+                                            <td v-html="item.document_link"></td>
                                             </tr>
                                         <tr>
                                             <th>Ανάθεση</th>
